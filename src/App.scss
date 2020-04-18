@@ -1,0 +1,28 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+  }
+   
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  #root, .App, .cart-page {
+    width: 100%;
+    height: 100%;
+  }
+
+   /* Header */
+  @import './assets/scss/header.scss';
+
+  /* List Page */
+  @import './assets/scss/itemList.scss';
+  
+  /* Cart Page */
+  @import './assets/scss/cart.scss';
+

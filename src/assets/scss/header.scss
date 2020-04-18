@@ -1,0 +1,12 @@
+.header {
+    .btn-cart {
+        &:hover {
+            a {
+                color: white;
+            }
+        }
+        a {
+            color: #28a745;
+        }
+    }
+}
