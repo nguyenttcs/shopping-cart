@@ -9,7 +9,7 @@ class ItemList extends React.Component {
         super(props);
         this.state = {
             items: [],
-            isLoading: true
+            isLoading: true,
         }
     }
 
