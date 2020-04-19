@@ -1,27 +1,11 @@
 import React, { Component } from 'react';
 
 class Item extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            cartList: []
-        }
-    }
-
     handleAddToCart = () => {
-        const {item} = this.props;
-        // const {cartList} = this.state;
-        this.setState(preState => {
-            return {
-                ...preState,
-                cartList: this.state.cartList.concat(item)
-            }
-        })
-        
+       this.props.cartList();  
     }
 
     render() {
-        console.log(this.state.cartList);
         const {item} = this.props;
         return (
             <div className="item-detail">

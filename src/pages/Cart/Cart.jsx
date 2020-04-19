@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import {connect} from "react-redux";
+
+import {getCartList} from "../../redux/actions/cartAction";
 
 class Cart extends Component {
 
@@ -25,6 +28,11 @@ class Cart extends Component {
   }
 
   render() {
+
+    const {cartList} = this.props;
+    console.log(cartList);
+    
+
     return (
       <div className="cart-page">
         <div className="shopping-cart">
@@ -48,7 +56,7 @@ class Cart extends Component {
                     <button className="plus-btn" type="button" name="button">
                       <img src="https://designmodo.com/demo/shopping-cart/plus.svg" alt="" />
                     </button>
-                    <input type="text" name="name" defaultValue={1} value={cartItem.quantity} />
+                    <input type="text" name="name" defaultValue={1} />
                     <button className="minus-btn" type="button" name="button">
                       <img src="https://designmodo.com/demo/shopping-cart/minus.svg" alt="" />
                     </button>
@@ -64,4 +72,17 @@ class Cart extends Component {
   }
 }
 
-export default Cart;
+const mapStateToProps = state => {
+  console.log(state);
+  
+  return {
+    cartList: state.cartListAction.cartList
+  }
+}
+
+const mapActionToProps = {
+  getCartList
+}
+
+
+export default connect(mapStateToProps, mapActionToProps)(Cart);
