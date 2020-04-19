@@ -1,45 +1,52 @@
 import React from 'react';
-import axios from 'axios';
+import {connect} from "react-redux";
 import Item from './Item';
+import {getItems} from "../../redux/actions/ItemAction";
 
 
 class ItemList extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            items: []
+            items: [],
+            isLoading: true
         }
     }
 
     componentDidMount() {
-        this.getItems();
-    }
-    
-
-    getItems = () => {
-        axios.get("http://localhost:3001/items")
-        .then(res=>{
-            this.setState({
-                items: res.data
-            })
-        })
+        this.props.getItems();
     }
 
     render() {
+        const {items, isLoading} = this.props;
+        
         return (
             <div className="item-page">
-                <div className="item-list">
-                {
-                    this.state.items.map((item, index) => {
-                        return (
-                            <Item key={index} item={item} />
-                        )
-                    })
+                {isLoading ? <h2>Loading</h2> : 
+                    <div className="item-list">
+                    {
+                        items.map((item, index) => {
+                            return (
+                                <Item key={index} item={item} />
+                            )
+                        })
+                    }
+                    </div>
                 }
-                </div>
             </div>
         )
     }
 }
 
-export default ItemList;
+const mapStateToProps = state => {
+    return {
+        items: state.iTemAction.listItems,
+        isLoading: state.iTemAction.isLoading
+    }
+}
+
+const mapActionToProps = {
+    getItems
+}
+
+export default connect(mapStateToProps, mapActionToProps)(ItemList);
