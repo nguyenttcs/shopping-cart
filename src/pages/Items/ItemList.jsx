@@ -19,44 +19,46 @@ class ItemList extends React.Component {
     this.props.getItems();
   }
 
-  componentDidUpdate(prevState) {
-    if (prevState.cartList !== this.state.cartList) {
-      this.props.getCartList(this.state.cartList);
-    }
-  }
+  // componentDidUpdate(prevState) {
+  //   if (prevState.cartList !== this.state.cartList) {
+  //     this.props.getCartList(this.state.cartList);
+  //   }
+  // }
 
   handleCartList = (item) => {
-    let { cartList } = this.state;
-    let cartListCopy = cartList;
-    item.quantity = 1;
+    const { cartList } = this.state;
+    const cartListCopy = cartList.map((cartItem) => cartItem);
 
-    if (!_.isEmpty(cartListCopy)) {
-      for (var i = 0; i < cartListCopy.length; i++) {
-        if (item.id === cartListCopy[i].id) {
-          console.log(cartListCopy[i].quantity);
-
-          cartListCopy[i].quantity = cartListCopy[i].quantity + 1;
-          console.log('1', cartListCopy[i].quantity);
-          break;
-        } else if (i === cartListCopy.length - 1) {
-          cartListCopy = cartListCopy.concat(item);
-          console.log('2');
-          break;
-        }
-      }
+    if (_.isEmpty(cartList)) {
+      const currentItem = { ...item };
+      currentItem.quantity = 1;
+      currentItem.stock = currentItem.stock - 1;
+      cartListCopy.push(currentItem);
     } else {
-      cartListCopy = cartListCopy.concat(item);
-      console.log('3');
+      const currentItem = cartList.find((cartItem) => cartItem.id === item.id);
+      if (currentItem) {
+        currentItem.quantity = currentItem.quantity + 1;
+        currentItem.stock = currentItem.stock - 1;
+        const index = cartList.findIndex((cartItem) => cartItem.id === item.id);
+        cartListCopy.splice(index, 1, currentItem);
+      } else {
+        const currentItem = { ...item };
+        currentItem.quantity = 1;
+        currentItem.stock = currentItem.stock - 1;
+        cartListCopy.push(currentItem);
+      }
     }
 
     console.log(cartListCopy);
 
-    this.setState((prevState) => {
-      return {
-        ...prevState,
+    this.setState(
+      {
         cartList: cartListCopy,
-      };
-    });
+      },
+      () => {
+        this.props.getCartList(this.state.cartList);
+      }
+    );
   };
 
   render() {
