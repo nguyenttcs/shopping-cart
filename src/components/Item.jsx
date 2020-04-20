@@ -20,7 +20,7 @@ class Item extends Component {
           <button
             onClick={this.handleAddToCart}
             className="btn btn-success btn-add"
-            disabled="disabled"
+            disabled={item.stock !== 0 ? '' : 'disabled'}
           >
             Add to Cart
           </button>

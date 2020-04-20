@@ -81,7 +81,6 @@ class ItemList extends React.Component {
 
   render() {
     const { items, isLoading } = this.props;
-    console.log(items);
 
     return (
       <div className="item-page">
