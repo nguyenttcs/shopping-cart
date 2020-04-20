@@ -7,6 +7,7 @@ class Item extends Component {
 
   render() {
     const { item } = this.props;
+
     return (
       <div className="item-detail">
         <div className="item-img">
@@ -19,6 +20,7 @@ class Item extends Component {
           <button
             onClick={this.handleAddToCart}
             className="btn btn-success btn-add"
+            disabled="disabled"
           >
             Add to Cart
           </button>
