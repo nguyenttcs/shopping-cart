@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import Item from './Item';
+import Item from '../../components/Item';
 import { getItems } from '../../redux/actions/ItemAction';
 import { getCartList } from '../../redux/actions/cartAction';
 
@@ -48,8 +48,6 @@ class ItemList extends React.Component {
         cartListCopy.push(currentItem);
       }
     }
-
-    console.log(cartListCopy);
 
     this.setState(
       {
