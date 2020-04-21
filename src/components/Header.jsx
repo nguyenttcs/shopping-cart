@@ -5,9 +5,7 @@ import { BrowserRouter as Router, Link, Switch, Route } from 'react-router-dom';
 import Cart from '../pages/Cart/Cart';
 
 class Header extends Component {
-  handleCartClick = () => {
-    console.log(this.props.history);
-  };
+  handleCartClick = () => {};
 
   render() {
     const { cartList } = this.props;
@@ -62,9 +60,7 @@ class Header extends Component {
         </nav>
 
         <Switch>
-          <Route exact path="/cart">
-            <Cart />
-          </Route>
+          <Route exact path="/cart" component={Cart}></Route>
         </Switch>
       </Router>
     );

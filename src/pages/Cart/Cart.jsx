@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { setCartList } from '../../redux/actions/cartAction';
 
 class Cart extends Component {
   constructor(props) {
@@ -8,6 +9,15 @@ class Cart extends Component {
       cartList: [],
     };
   }
+
+  handleClickDetele = (cartItem) => {
+    const cartListCopy = this.props.cartList.map((el) => el);
+    const indexCartItem = cartListCopy.findIndex((el) => el.id === cartItem.id);
+    cartListCopy.splice(indexCartItem, 1);
+
+    //Update CartList in store
+    this.props.setCartList(cartListCopy);
+  };
 
   render() {
     const { cartList } = this.props;
@@ -20,7 +30,10 @@ class Cart extends Component {
             return (
               <div className="item" key={index}>
                 <div className="buttons">
-                  <span className="delete-btn" />
+                  <span
+                    onClick={() => this.handleClickDetele(cartItem)}
+                    className="delete-btn"
+                  />
                 </div>
                 <div className="image">
                   <img src={cartItem.image} alt="" />
@@ -64,6 +77,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapActionToProps = {};
+const mapActionToProps = {
+  setCartList,
+};
 
 export default connect(mapStateToProps, mapActionToProps)(Cart);
