@@ -19,6 +19,25 @@ class Cart extends Component {
     this.props.setCartList(cartListCopy);
   };
 
+  handleClickPlusMinus = (cartItem, key) => {
+    const cartListCopy = this.props.cartList.map((el) => el);
+    const currentCartItem = cartListCopy.find((el) => el.id === cartItem.id);
+    const currentItemIndex = cartListCopy.findIndex(
+      (el) => el.id === cartItem.id
+    );
+
+    if (key === 'plus') {
+      currentCartItem.quantity = currentCartItem.quantity + 1;
+      currentCartItem.stock = currentCartItem.stock - 1;
+    } else {
+      currentCartItem.quantity = currentCartItem.quantity - 1;
+      currentCartItem.stock = currentCartItem.stock + 1;
+    }
+
+    cartListCopy.splice(currentItemIndex, 1, currentCartItem);
+    this.props.setCartList(cartListCopy);
+  };
+
   render() {
     const { cartList } = this.props;
 
@@ -42,23 +61,24 @@ class Cart extends Component {
                   <h4>{cartItem.name}</h4>
                 </div>
                 <div className="quantity">
-                  <button className="plus-btn" type="button" name="button">
-                    <img
-                      src="https://designmodo.com/demo/shopping-cart/plus.svg"
-                      alt=""
-                    />
+                  <button
+                    className="btn btn-success plus-btn"
+                    type="button"
+                    name="button"
+                    onClick={() => this.handleClickPlusMinus(cartItem, 'plus')}
+                    disabled={cartItem.stock === 0 ? 'disabled' : ''}
+                  >
+                    <span>+</span>
                   </button>
-                  <input
-                    type="text"
-                    name="name"
-                    defaultValue={1}
-                    value={cartItem.quantity}
-                  />
-                  <button className="minus-btn" type="button" name="button">
-                    <img
-                      src="https://designmodo.com/demo/shopping-cart/minus.svg"
-                      alt=""
-                    />
+                  <span className="m-2">{cartItem.quantity}</span>
+                  <button
+                    className="btn btn-success minus-btn"
+                    type="button"
+                    name="button"
+                    onClick={() => this.handleClickPlusMinus(cartItem, 'minus')}
+                    disabled={cartItem.quantity === 0 ? 'disabled' : ''}
+                  >
+                    <span>-</span>
                   </button>
                 </div>
                 <div className="total-price">${cartItem.price}</div>
