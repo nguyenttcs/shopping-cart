@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { BrowserRouter as Router, Link, Switch, Route } from 'react-router-dom';
-import Cart from '../pages/Cart/Cart';
+import { NavLink } from 'react-router-dom';
 
 class Header extends Component {
   handleCartClick = () => {};
@@ -15,54 +14,48 @@ class Header extends Component {
     });
 
     return (
-      <Router>
-        <nav className="navbar navbar-expand-lg navbar-light bg-light header">
-          <a className="navbar-brand" href="/">
-            SHOPPING DEMO
-          </a>
+      <nav className="navbar navbar-expand-lg navbar-light bg-light header">
+        <a className="navbar-brand" href="/">
+          SHOPPING DEMO
+        </a>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarTogglerDemo02"
+        >
+          <span className="navbar-toggler-icon" />
+        </button>
+        <div
+          className="collapse navbar-collapse justify-content-end"
+          id="navbarTogglerDemo02"
+        >
           <button
-            className="navbar-toggler"
+            className="btn btn-outline-success btn-cart mr-2"
             type="button"
-            data-toggle="collapse"
-            data-target="#navbarTogglerDemo02"
+            onClick={this.handleCartClick}
           >
-            <span className="navbar-toggler-icon" />
+            <NavLink to="/cart">
+              <i className="fas fa-shopping-cart"></i>
+            </NavLink>
+            <span className="m-2">{cartListNo}</span>
           </button>
-          <div
-            className="collapse navbar-collapse justify-content-end"
-            id="navbarTogglerDemo02"
-          >
+
+          <form className="form-inline my-2 my-lg-0">
+            <input
+              className="form-control mr-sm-2"
+              type="search"
+              placeholder="Search"
+            />
             <button
-              className="btn btn-outline-success btn-cart mr-2"
+              className="btn btn-outline-success my-2 my-sm-0"
               type="button"
-              onClick={this.handleCartClick}
             >
-              <Link to="/cart">
-                <i className="fas fa-shopping-cart"></i>
-              </Link>
-              <span className="m-2">{cartListNo}</span>
+              Search
             </button>
-
-            <form className="form-inline my-2 my-lg-0">
-              <input
-                className="form-control mr-sm-2"
-                type="search"
-                placeholder="Search"
-              />
-              <button
-                className="btn btn-outline-success my-2 my-sm-0"
-                type="button"
-              >
-                Search
-              </button>
-            </form>
-          </div>
-        </nav>
-
-        <Switch>
-          <Route exact path="/cart" component={Cart}></Route>
-        </Switch>
-      </Router>
+          </form>
+        </div>
+      </nav>
     );
   }
 }
