@@ -81,7 +81,9 @@ class Cart extends Component {
                     <span>-</span>
                   </button>
                 </div>
-                <div className="total-price">${cartItem.price}</div>
+                <div className="total-price">
+                  ${cartItem.price * cartItem.quantity}
+                </div>
               </div>
             );
           })}
